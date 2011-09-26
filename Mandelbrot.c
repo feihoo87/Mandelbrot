@@ -6,20 +6,18 @@
 #include"displayplot.h"
 
 int mm=0;
-double aaa=10.0;
 
-int Mandelbrot(double x, double y, int timeslimit, double abslimt)
+int Mandelbrot(double x, double y, int timeslimit)
 {
   int i;
   double zx,zy,abs_z_2;
   double temp;
 
-  abslimt*=abslimt;
   abs_z_2=0.0;
   zx=0.0;
   zy=0.0;
 
-  for(i=0; i<timeslimit && abs_z_2<abslimt; ++i){
+  for(i=0; i<timeslimit && abs_z_2<4.0; ++i){
 	temp = zx;
 	zx = zx*zx-zy*zy+x;
 	zy = 2.0*temp*zy+y;
@@ -34,7 +32,6 @@ int Mandelbrot(double x, double y, int timeslimit, double abslimt)
 double mf(double x, double y)
 {
   int max=100+mm;
-  double abslimt=aaa;
   /*
   double cx;
   double cy;
@@ -49,7 +46,7 @@ double mf(double x, double y)
 	if(((y-cy)<=0.001&&(y-cy)>=-0.001))
 	  return 1.0;
   */
-  int a=Mandelbrot(x,y,max,abslimt);
+  int a=Mandelbrot(x,y,max);
   //if(a==max)
   //	return -10.0;
   return 1.7*2.0*log(a)/log(max)-1.1;
@@ -130,7 +127,6 @@ int main(void)
 	setyrange(cy,l);
 	++index;
 	mm+=50;
-	aaa*=1.2;
   }while(selection!='q');
 
   return 0;
